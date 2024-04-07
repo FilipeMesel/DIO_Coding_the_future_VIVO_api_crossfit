@@ -31,4 +31,142 @@ Para executar este projeto localmente, siga os passos abaixo:
     ```bash
     uvicorn main:app --reload --port 8080
 
+## Endpoints
+
+    POST /atletas/: Cria um novo atleta.
+    PUT /atletas/{atleta_id}: Atualiza os dados de um atleta existente.
+    POST /categorias/: Cria uma nova categoria.
+    POST /centros_treinamento/: Cria um novo centro de treinamento.
+    POST /atletas/{atleta_id}/associar_centro/{centro_id}: Associa um atleta a um centro de treinamento.
+    GET /centros_treinamento/{centro_id}/atletas: Obtém todos os atletas associados a um centro de treinamento específico.
+
+## Exemplos
+
+1. **POST /atletas/**
+
+    ```bash
+    {
+        "nome": "Maria",
+        "peso": 60.5,
+        "altura": 1.65,
+        "idade": 25,
+        "sexo": "F",
+        "cpf": "1",
+        "telefone": "+5511999999998",
+        "categoria_id": 1,
+        "centro_treinamento_id": 1
+    }
+    ```
+
+    Retorno:
+
+    ```bash
+    {
+        "nome": "Maria",
+        "peso": 60.5,
+        "altura": 1.65,
+        "idade": 25,
+        "sexo": "F",
+        "cpf": "2",
+        "telefone": "+5511999999998",
+        "id": 3,
+        "categoria_id": 1
+    }
+    ```
+
+
+2. **PUT /atletas/{atleta_id}**
+
+    ```bash
+    {
+        "nome": "João",
+        "peso": 60.5,
+        "altura": 1.65,
+        "idade": 25,
+        "sexo": "F",
+        "cpf": "2",
+        "telefone": "+5511999999998",
+        "categoria_id": 1,
+        "centro_treinamento_id": 1
+    }
+    ```
+
+    Retorno:
+
+    ```bash
+    {
+	    "message": "Atleta com ID 3 atualizado com sucesso"
+    }
+    ```
+
+3. **POST /categorias/**
+
+    ```bash
+    {
+        "nome": "peso pena"
+    }
+    ```
+    Retorno:
+
+    ```bash
+    {
+        "nome": "peso pena",
+        "id": 1,
+        "centros_treinamento": []
+    }
+    ```
+
+4. **POST /centros_treinamento/**
+
+    ```bash
+    {
+        "nome": "GYM",
+        "endereco": "Rua x, 002",
+        "proprietario": "Fulaninho"
+    }
+    ```
+    Retorno:
+
+    ```bash
+    {
+        "nome": "GYM",
+        "endereco": "Rua x, 002",
+        "proprietario": "Fulaninho",
+        "id": 2,
+        "atletas": []
+    }
+    ```
+
+5. **POST /atletas/{atleta_id}/associar_centro/{centro_id}**
+
+    Retorno
+    ```bash
+    {
+        "message": "Atleta 1 associado ao Centro de Treinamento 1"
+    }
+    ```
+
+6. **GET /centros_treinamento/{centro_id}/atletas**
+
+    Retorno
+    ```bash
+    [
+        {
+            "nome": "Maria",
+            "peso": 60.5,
+            "altura": 1.65,
+            "idade": 25,
+            "sexo": "F",
+            "cpf": "12345678900",
+            "telefone": "+5511999999999",
+            "id": 1,
+            "categoria_id": 1
+        }
+    ]
+    ```
+    
+
+## Observações
+O CPF e o telefone dos atletas são únicos, garantindo que não haja duplicação de dados.
+O projeto utiliza SQLite como banco de dados local para armazenar os dados dos atletas, categorias e centros de treinamento.
 
